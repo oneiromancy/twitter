@@ -31,6 +31,11 @@ app.get("/login", function(req, res, next) {
     res.render("login");
 });
 
+// Sign up Routes
+app.get("/signup", function(req, res, next) {
+    res.render("signup");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
