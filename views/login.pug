@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    div(
+        class="container"
+        style="width: 75%"
+    )
+        div.card.p-5
+            div.card-body
+                h1(
+                    class="card-title"
+                    style="font-size: 1.5rem; font-weight: bold"
+                ) 
+                    | Log in to Twitter
+                form
+                    div.form-group
+                        input(
+                            type="username"
+                            placeholder="username"
+                        )
+                    div.form-group                            
+                        input(
+                            type="password"
+                            placeholder="password"
+                        )
+                    button(
+                        class="btn btn-primary text-white font-weight-bold"
+                        type="submit"
+                    ) 
+                        | Login
