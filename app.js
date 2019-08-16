@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -22,6 +23,16 @@ app.use(
     "/bootstrap",
     express.static(path.join(__dirname, "node_modules/bootstrap/dist/css"))
 );
+
+//Set up mongoose connection
+var mongoDB = "mongodb://localhost:27017/twitter";
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+
+//Get mongoose connection
+var db = mongoose.connection;
+
+// Get notification of connection errors
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
