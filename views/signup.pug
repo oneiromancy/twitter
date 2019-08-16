@@ -8,26 +8,19 @@ block content
         div.card.p-5
             div.card-body
                 h1.card-title Join Twitter today
-                form
+
+                form(method = "POST" action = '/signup')
                     div.form-group
-                        input(
-                            type="fullname"
-                            placeholder="fullname"
-                        )
+                        input(type="text" name="fullname" placeholder="fullname")
+                    
                     div.form-group                    
-                        input(
-                            type="email"
-                            placeholder="email"
-                        )
+                        input(type="email" name="email" placeholder="email")
+                    
                     div.form-group
-                        input(
-                            type="username"
-                            placeholder="username"
-                        )
+                        input(type="text" name="username" placeholder="username")
+
                     div.form-group                            
-                        input(
-                            type="password"
-                            placeholder="password"
-                        )
+                        input(type="password" name="password" placeholder="password")
+
                     button.btn.btn-primary.text-white.font-weight-bold
                         | Sign up
