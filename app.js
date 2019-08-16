@@ -4,11 +4,12 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-var session = require("express-session");
+const session = require("express-session");
 
 const indexRouter = require("./routes/index");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
+const logoutRouter = require("./routes/logout");
 
 const app = express();
 
@@ -45,8 +46,18 @@ const db = mongoose.connection;
 // Get notification of connection errors
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+// caching disabled for every route
+app.use(function(req, res, next) {
+    res.set(
+        "Cache-Control",
+        "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
+    );
+    next();
+});
+
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
 app.use("/signup", signupRouter);
 
 // catch 404 and forward to error handler
