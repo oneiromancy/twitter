@@ -4,12 +4,22 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+var session = require("express-session");
 
 const indexRouter = require("./routes/index");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 
 const app = express();
+
+// use sessions to track user login
+app.use(
+    session({
+        secret: "oneiromancy",
+        resave: true,
+        saveUninitialized: false
+    })
+);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
