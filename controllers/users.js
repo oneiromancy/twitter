@@ -26,3 +26,38 @@ exports.registerUser = (req, res, next) => {
         return next(err);
     }
 };
+
+exports.loginUser = (req, res, next) => {
+    const { username, password } = req.body;
+
+    if (username && password) {
+        Users.authenticate(username, password, function(error, user) {
+            if (error || !user) {
+                const err = new Error("Wrong password.");
+                err.status = 401;
+                return next(err);
+            } else {
+                req.session.userId = user._id;
+                return res.redirect("/");
+            }
+        });
+    } else {
+        var err = new Error("Username and password are required.");
+        err.status = 401;
+        return next(err);
+    }
+};
+
+exports.logoutUser = (req, res, next) => {
+    console.log("testing");
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect("/login");
+            }
+        });
+    }
+};
