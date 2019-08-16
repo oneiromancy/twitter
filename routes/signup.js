@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const usersController = require("../controllers/users");
+var mid = require("../middleware");
 
 /* GET /signup */
-router.get("/", function(req, res, next) {
+router.get("/", mid.isLoggedIn, function(req, res, next) {
     res.render("signup");
 });
 
