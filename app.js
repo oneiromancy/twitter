@@ -1,14 +1,15 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const signupRouter = require("./routes/signup");
+const loginRouter = require("./routes/login");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -25,27 +26,18 @@ app.use(
 );
 
 //Set up mongoose connection
-var mongoDB = "mongodb://localhost:27017/twitter";
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+const mongoDB = "mongodb://localhost:27017/twitter";
+mongoose.connect(mongoDB, { useNewUrlParser: true, useCreateIndex: true });
 
 //Get mongoose connection
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 // Get notification of connection errors
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-
-// Login Routes
-app.get("/login", function(req, res, next) {
-    res.render("login");
-});
-
-// Sign up Routes
-app.get("/signup", function(req, res, next) {
-    res.render("signup");
-});
+app.use("/login", loginRouter);
+app.use("/signup", signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
