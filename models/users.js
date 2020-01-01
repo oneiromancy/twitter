@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema({
+    creationDate: {
+        type: Date,
+        default: Date.now
+    },
     fullname: {
         type: String,
         required: true,
@@ -15,13 +19,30 @@ const UserSchema = new mongoose.Schema({
     },
     username: {
         type: String,
+        unique: true,
         required: true,
         trim: true
     },
     password: {
         type: String,
+        minlength: 8,
         required: true
-    }
+    },
+    profilePicture: {
+        type: String
+    },
+    following: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    followers: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: "User"
+        }
+    ]
 });
 
 // authenticate input against database documents
