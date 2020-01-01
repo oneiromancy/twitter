@@ -16,7 +16,7 @@ const userRouter = require("./routes/users");
 
 const app = express();
 
-// attaches HTTP request methods (other than POST) to HTML forms
+// attaches HTTP request methods (other than POST) to HTML form requests
 app.use(methodOverride("_method"));
 
 // use sessions to track user login
@@ -37,10 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-    "/bootstrap",
-    express.static(path.join(__dirname, "node_modules/bootstrap/dist/css"))
-);
 
 //Set up mongoose connection
 const mongoDB = "mongodb://localhost:27017/twitter";
