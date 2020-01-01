@@ -37,3 +37,30 @@ exports.renderSignupPage = (req, res, next) => {
         errors
     });
 };
+
+exports.loginUser = (req, res, next) => {
+    const { username, password } = req.body;
+
+    User.authenticate(username, password, (err, user) => {
+        if (err) next(err);
+
+        if (!user) {
+            req.session.errors = true;
+            return res.redirect("/login");
+        } else {
+            req.session.errors = false;
+            req.session.user = user;
+            return res.redirect("/");
+        }
+    });
+};
+
+exports.renderLoginPage = (req, res, next) => {
+    const errors = req.session.errors;
+    req.session.errors = false;
+
+    return res.render("pages/login", {
+        title: "Login on Twitter",
+        errors
+    });
+};
