@@ -1,14 +1,9 @@
-var express = require("express");
-var router = express.Router();
-const usersController = require("../controllers/users");
-var mid = require("../middleware");
+const express = require("express");
+const router = express.Router();
+const auth = require("../controllers/auth");
 
-/* GET /login */
-router.get("/", mid.isLoggedIn, function(req, res, next) {
-    res.render("login");
-});
+router.get("/", auth.renderLoginPage);
 
-/* POST /login */
-router.post("/", usersController.loginUser);
+router.post("/", auth.loginUser);
 
 module.exports = router;
