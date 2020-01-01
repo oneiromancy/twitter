@@ -6,7 +6,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
 
-const indexRouter = require("./routes/index");
+// routes
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
 const logoutRouter = require("./routes/logout");
@@ -55,10 +55,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use("/", indexRouter);
-app.use("/login", loginRouter);
+// routes
+app.use("/signup", gateway.redirectLoggedInUser, signupRouter);
+app.use("/login", gateway.redirectLoggedInUser, loginRouter);
 app.use("/logout", logoutRouter);
-app.use("/signup", signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
