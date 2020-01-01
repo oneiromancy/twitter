@@ -9,6 +9,23 @@ exports.getUserIdFromUsername = (req, res, next) => {
     });
 };
 
+exports.getUsersByQuery = (req, res, next) => {
+    User.find({
+        $or: [
+            { username: { $regex: req.query.q, $options: "i" } },
+            { fullname: { $regex: req.query.q, $options: "i" } }
+        ]
+    }).exec((err, users) => {
+        if (err) next(err);
+
+        return res.render("pages/search", {
+            title: `${req.query.q} - Twitter Search / Twitter`,
+            loggedInUser: req.session.user,
+            users
+        });
+    });
+};
+
 exports.updateProfilePicture = (req, res, next) => {
     const data = {
         profilePicture: req.file ? "./uploads/" + req.file.filename : null
