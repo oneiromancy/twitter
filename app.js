@@ -48,6 +48,9 @@ const db = mongoose.connection;
 // Get notification of connection errors
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+// Make Mongoose use `findOneAndUpdate()`
+mongoose.set("useFindAndModify", false);
+
 // caching disabled for every route
 app.use(function(req, res, next) {
     res.set(
