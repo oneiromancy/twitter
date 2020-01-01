@@ -64,3 +64,13 @@ exports.renderLoginPage = (req, res, next) => {
         errors
     });
 };
+
+exports.logoutUser = (req, res, next) => {
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) next(err);
+
+            return res.redirect("/login");
+        });
+    }
+};
