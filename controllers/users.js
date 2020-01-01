@@ -9,6 +9,19 @@ exports.getUserIdFromUsername = (req, res, next) => {
     });
 };
 
+exports.updateProfilePicture = (req, res, next) => {
+    const data = {
+        profilePicture: req.file ? "./uploads/" + req.file.filename : null
+    };
+
+    User.updateOne({ username: req.params.username }, data, (err, user) => {
+        if (err) next(err);
+
+        req.session.user.profilePicture = data["profilePicture"];
+        return res.redirect("back");
+    });
+};
+
 exports.followUser = (req, res, next) => {
     User.findOneAndUpdate(
         { username: req.params.username },
