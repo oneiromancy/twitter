@@ -1,14 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const usersController = require("../controllers/users");
-var mid = require("../middleware");
+const auth = require("../controllers/auth");
+const validator = require("../helpers/validator");
 
-/* GET /signup */
-router.get("/", mid.isLoggedIn, function(req, res, next) {
-    res.render("signup");
-});
+router.get("/", auth.renderSignupPage);
 
-/* POST /signup */
-router.post("/", usersController.registerUser);
+router.post("/", validator.createUser, auth.signupUser);
 
 module.exports = router;
