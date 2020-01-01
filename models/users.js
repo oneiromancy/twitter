@@ -66,10 +66,12 @@ UserSchema.statics.authenticate = (username, password, callback) => {
 };
 
 // hash password before saving to database
+// Arrow functions (ES6) cannot be used in Mongoose hooks
 UserSchema.pre("save", function(next) {
     const user = this;
-    bcrypt.hash(user.password, 10, function(err, hash) {
-        if (err) return next(err);
+
+    bcrypt.hash(user.password, 10, (err, hash) => {
+        if (err) next(err);
 
         user.password = hash;
         next();
