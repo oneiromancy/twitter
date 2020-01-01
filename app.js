@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const methodOverride = require("method-override");
 
 // routes
 const signupRouter = require("./routes/signup");
@@ -14,6 +15,9 @@ const tweetRouter = require("./routes/tweets");
 const userRouter = require("./routes/users");
 
 const app = express();
+
+// attaches HTTP request methods (other than POST) to HTML forms
+app.use(methodOverride("_method"));
 
 // use sessions to track user login
 app.use(
