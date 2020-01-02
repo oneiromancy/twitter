@@ -1,0 +1,13 @@
+include ../mixins/userIcon
+
+nav.nav.py-4.py-lg-0.flex-lg-column.align-items-center
+
+    a.navbar__home-icon.navbar-item.order-1.order-lg-0.mx-4.mx-lg-0.my-2(href="/")
+        i.fa.fa-twitter 
+
+    a.navbar__profile-icon.navbar-item.order-2.order-lg-1.mr-4.mx-lg-0.mb-2(href=`/${loggedInUser.username}`)
+        +userIcon(loggedInUser, "icon")
+
+    a.navbar__logout-icon.navbar-item.order-0.order-lg-2.mr-auto.ml-3.mr-lg-0.ml-lg-auto.d-flex.flex-column.align-items-center.text-dark(href="/logout")
+        span.font-weight-bold Logout
+        i.fa.fa-sign-out
