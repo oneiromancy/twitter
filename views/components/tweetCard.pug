@@ -1,0 +1,14 @@
+include ../mixins/tweetHeader
+include ../mixins/tweetBody
+
+div.card.border-top-0
+    div.container.m-0.p-0
+        div.row
+            div.col
+                div.card-header.pb-0.border-0.bg-white
+                    +tweetHeader(tweet)
+        div.row
+            div.col-11.offset-1
+                div.card-body.pt-0
+                    +tweetBody(tweet)
+        
