@@ -1,0 +1,15 @@
+include ../mixins/submitButton
+include ../mixins/imageUploader
+
+mixin tweetForm(httpMethod, action, textareaPlaceholder, textareaValue, btnLabel)
+    div.tweet-form.ml-2
+        form(method="POST" enctype="multipart/form-data" action=`${action}?_method=${httpMethod}`)
+            
+            div.form-group
+                textarea.tweet-form__textarea.form-control.border-0(type="text" name="text" placeholder = textareaPlaceholder)
+                    | #{textareaValue}
+                
+                div.d-flex.justify-content-end.align-items-end.mt-2
+                    div.mr-3
+                        +imageUploader(`${httpMethod}-tweet`, "paperclip")
+                    +submitButton(btnLabel)
