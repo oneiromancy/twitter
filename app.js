@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const cors = require("cors");
 const methodOverride = require("method-override");
 const gateway = require("./helpers/gateway");
 
@@ -21,8 +20,6 @@ const app = express();
 
 // attaches HTTP request methods (other than POST) to HTML form requests
 app.use(methodOverride("_method"));
-
-app.use(cors());
 
 // cookie parser
 app.use(cookieParser());
