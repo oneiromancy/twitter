@@ -1,0 +1,10 @@
+include ../mixins/inputField.pug
+include ../mixins/submitButton.pug
+
+form(method="POST" action ="/signup")
+    +inputField("fullname", "text", "Fullname")
+    +inputField("email", "text", "Email")
+    +inputField("username", "text", "Username")
+    +inputField("password", "password", "Password")
+
+    +submitButton("Sign up")

@@ -1,0 +1,8 @@
+include ../mixins/inputField.pug
+include ../mixins/submitButton.pug
+
+form(method="POST" action="/login")
+    +inputField("username", "text", "username")
+    +inputField("password", "password", "password")
+
+    +submitButton("Login")
