@@ -3,7 +3,9 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "node ./bin/www"
+        "start": "node ./bin/www",
+        "css": "node-sass styles/main.scss -o public/stylesheets",
+        "css:watch": "node-sass styles/main.scss -wo public/stylesheets"
     },
     "dependencies": {
         "bcrypt": "^3.0.7",
