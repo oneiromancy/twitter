@@ -1,0 +1,27 @@
+include ../mixins/userIcon
+
+mixin tweetHeader(tweet)
+    div.d-flex
+        +userIcon(tweet.author, "icon")
+    
+        div.d-flex.align-items-center.pl-2
+            a.text-dark.font-weight-bold(href=`/${tweet.author.username}`)
+                | #{tweet.author.fullname} 
+            
+            a.text-secondary.ml-1(href=`/${tweet.author.username}`)
+                | @#{tweet.author.username}
+            
+            span.ml-2 · 
+            
+            span.ml-2.text-secondary 
+                | #{moment(tweet.creationDate).fromNow()}
+            
+            if tweet.author.username === loggedInUser.username
+                span.ml-2 ·
+
+                button.tweet-header__edit-btn.btn.btn-link.text-dark.p-0.m-0.px-2.pt-1
+                    i.fa.fa-edit
+
+                form(action=`http://localhost:3000/tweets/${tweet._id}?_method=DELETE`, method="POST")
+                    button.btn.btn-link.text-dark.m-0.p-0
+                        i.fa.fa-trash
