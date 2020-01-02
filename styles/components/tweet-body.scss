@@ -1,0 +1,15 @@
+.tweet-body__update-form {
+    display: none;
+
+    .tweet-form__textarea {
+        font-size: 1rem;
+    }
+
+    .tweet-form__textarea:focus {
+        border: 1px solid black;
+    }
+}
+
+.tweet-body__image {
+    border-radius: 1rem;
+}

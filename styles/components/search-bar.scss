@@ -1,0 +1,15 @@
+@media (min-width: 992px) {
+    .search-bar {
+        position: fixed;
+        width: 26%;
+    }
+}
+
+.search-bar__input {
+    width: 100%;
+}
+
+.search-bar__input:focus {
+    outline: 0;
+    border: none;
+}

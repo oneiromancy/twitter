@@ -1,0 +1,27 @@
+@media (min-width: 992px) {
+    .nav {
+        position: fixed;
+    }
+}
+
+.navbar__home-icon {
+    font-size: 2rem;
+    color: rgba(29, 161, 242, 1);
+}
+
+.navbar__profile-icon {
+    font-size: 1.5rem;
+    opacity: 0.85;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.navbar__logout-icon {
+    font-size: 1rem;
+
+    i {
+        transform: rotate(180deg);
+    }
+}
