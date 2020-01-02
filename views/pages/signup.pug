@@ -1,0 +1,17 @@
+extends ../layouts/auth
+
+block errors
+    if errors
+        ul.list-group.mb-5.ml-3
+            each error in errors
+                li.text-danger= error.msg
+
+block heading
+    | Join Twitter today
+
+block form
+    include ../components/signupForm
+
+block footer
+    div.pl-0.pl-md-5 Have an account? 
+        a(href="/login") Log in &#187;

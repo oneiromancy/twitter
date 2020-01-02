@@ -1,0 +1,15 @@
+extends ../layouts/auth
+
+block errors
+    if errors
+        p.text-danger.mb-5 The email and password you entered did not match our records. Please double-check and try again. 
+
+block heading
+    | Log in to Twitter
+
+block form
+    include ../components/loginForm
+
+block footer
+    div.pl-0.pl-md-5 New to Twitter? 
+        a(href="/signup") Sign up now &#187;
