@@ -1,0 +1,22 @@
+include ../mixins/userIcon
+include ../mixins/followUser
+
+mixin searchResults()    
+    ul.list-group
+    
+        if users.length
+            each user in users
+                li.list-group-item.p-3.d-flex.flex-row.justify-content-between
+                    a.d-flex.flex-row(href=`/${user.username}`)
+                        div.mr-2
+                            +userIcon(user, "icon")
+                        div.d-flex.flex-column
+                            div.text-dark.font-weight-bold #{user.fullname}
+                            div.text-secondary #{user.username}
+    
+                    if loggedInUser.username !== user.username
+                        div
+                            +followUser(user)
+
+        else
+            li.list-group-item.p-3.font-weight-bold User not Found
