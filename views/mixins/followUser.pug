@@ -1,0 +1,9 @@
+include ../mixins/submitButton
+
+mixin followUser(user)
+    if !loggedInUser.following.includes(user._id.toString())
+        form(action=`/${user.username}/follow` method="POST")
+            +submitButton("Follow")
+    else
+        form(action=`/${user.username}/unfollow` method="POST")
+            +submitButton("Unfollow")
