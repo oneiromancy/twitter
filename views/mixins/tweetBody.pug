@@ -1,0 +1,18 @@
+include ../mixins/tweetForm
+
+mixin tweetBody(tweet)
+    div.pl-2
+
+        div.tweet-body(
+                class= `${tweet.author.username === loggedInUser.username?"tweet-body__editable-content":""}`
+            )
+
+            div.tweet-body__text.card-text.mb-2
+                | #{tweet.text}
+            
+            if tweet.image
+                img.tweet-body__image.img-fluid(src=tweet.image)
+
+        if tweet.author.username === loggedInUser.username
+            div.tweet-body__update-form        
+                +tweetForm("PATCH", `/tweets/${tweet._id}`, "", tweet.text, "Update")
