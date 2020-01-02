@@ -1,0 +1,6 @@
+mixin userIcon(user, className)
+    if user.profilePicture
+        div(class=`user-icon__${className}-frame`)
+            img.user-icon__image.img-fluid(src=user.profilePicture)
+    else
+        i.fa.fa-user-circle.text-dark(class=`user-icon__anonymous-${className}-image`)
