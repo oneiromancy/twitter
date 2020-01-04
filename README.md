@@ -10,6 +10,8 @@ This is a Twitter clone following an MVC pattern. It is a responsive website tha
 -   to follow/unfollow a given user
 -   to search a given user
 
+![](demo.gif)
+
 ## Built With
 
 -   Server: Node.js (Express)
