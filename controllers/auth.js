@@ -42,9 +42,7 @@ exports.loginUser = (req, res, next) => {
     const { username, password } = req.body;
 
     User.authenticate(username, password, (err, user) => {
-        if (err) next(err);
-
-        if (!user) {
+        if (!user || err) {
             req.session.errors = true;
             return res.redirect("/login");
         } else {
