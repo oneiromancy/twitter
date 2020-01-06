@@ -18,7 +18,7 @@ exports.signupUser = (req, res, next) => {
         };
 
         User.create(data, (err, user) => {
-            if (err) next(err);
+            if (err) return res.redirect("/signup");
 
             req.session.user = user;
             req.session.errors = null;
