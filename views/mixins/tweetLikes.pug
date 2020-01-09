@@ -1,0 +1,15 @@
+mixin tweetLikes(tweet)
+    if tweet.likes.includes(loggedInUser._id)
+        form(method="POST" enctype="multipart/form-data" action=`/tweets/${tweet._id}/unlike?_method=PATCH`)
+            button.btn.p-0 
+                div.d-flex
+                    div
+                        i.fa.fa-heart(style="color: rgba(224, 36, 94, 0.6);")
+                    div.ml-2 #{tweet.likes.length}
+    else
+        form(method="POST" enctype="multipart/form-data" action=`/tweets/${tweet._id}/like?_method=PATCH`)
+                button.btn.p-0 
+                    div.d-flex
+                        div
+                            i.fa.fa-heart(style="color: rgb(101, 119, 134);")
+                        div.ml-2 #{tweet.likes.length}
