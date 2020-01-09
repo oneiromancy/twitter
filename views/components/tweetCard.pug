@@ -4,16 +4,18 @@ include ../mixins/tweetFooter
 
 div.card.border-top-0
     div.container.m-0.p-0
-    div.row
-        div.col-12
-                div.card-header.pb-0.border-0.bg-white
-                    +tweetHeader(tweet)
+        div.row
+            div.col-12
+                    div.card-header.pb-0.border-0.bg-white
+                        +tweetHeader(tweet)
 
-        div.col-11.offset-1
-            div.card-body.pt-0
-                +tweetBody(tweet)
+        div.row
+            div.col-11.offset-1
+                div.card-body.pt-0
+                    +tweetBody(tweet)
 
-        div.col-11.offset-1
-            div.card-footer.pt-0.pl-5.border-0.bg-white
-                +tweetFooter(tweet)
+        div.row
+            div.col-11.offset-1
+                div.card-footer.pt-0.pl-5.border-0.bg-white
+                    +tweetFooter(tweet)
         
