@@ -40,6 +40,30 @@ exports.deleteTweet = (req, res, next) => {
     });
 };
 
+exports.likeTweet = (req, res, next) => {
+    Tweet.updateOne(
+        { _id: req.params.tweetId },
+        { $push: { likes: req.session.user._id } },
+        (err, tweet) => {
+            if (err) next(err);
+
+            return res.redirect("back");
+        }
+    );
+};
+
+exports.unlikeTweet = (req, res, next) => {
+    Tweet.updateOne(
+        { _id: req.params.tweetId },
+        { $pull: { likes: req.session.user._id } },
+        (err, tweet) => {
+            if (err) next(err);
+
+            return res.redirect("back");
+        }
+    );
+};
+
 exports.getTweetsByUserFeed = (req, res, next) => {
     Tweet.find({
         $or: [
