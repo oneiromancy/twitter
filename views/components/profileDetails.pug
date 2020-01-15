@@ -1,0 +1,29 @@
+div
+    h1.mb-1.font-weight-bold #{user.fullname}
+
+    h2.text-secondary @#{user.username}
+
+    if user.bio
+        p.mt-3 #{user.bio}
+        
+    
+    div.d-flex.mt-3 
+        if user.location
+            div.text-secondary.mr-2
+                i.fa.fa-map-marker-alt.mr-1
+                span #{user.location}
+
+        if user.website
+            div.text-secondary.mx-2 
+                i.fa.fa-link.mr-1
+                a(href=user.website) #{user.website}
+
+        div.text-secondary.mx-2
+            i.fa.fa-calendar-alt.mr-2
+            span Joined #{moment(user.creationDatet).format('ll')}
+
+    div.mt-3 
+        span.text-dark.font-weight-bold #{user.following.length} 
+        span.text-secondary Following
+        span.text-dark.font-weight-bold.ml-3 #{user.followers.length} 
+        span.text-secondary Followers

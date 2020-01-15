@@ -1,0 +1,57 @@
+include ../mixins/userIcon
+include ../mixins/submitButton
+include ../mixins/imageUploader
+
+// Button trigger modal
+button.submit-button.btn.btn-sm.rounded-pill.text-white.font-weight-bold.py-2.px-3(
+    type='button' data-toggle='modal' data-target="#user-profile"
+)
+    | Edit Profile
+
+// Modal
+div.modal(id="user-profile" tabindex='-1' role='dialog' aria-hidden='true')
+    div.modal-dialog(role='document')
+        div.modal-content.modal__content
+        
+            form(method="POST" enctype="multipart/form-data" action=`/${loggedInUser.username}?_method=PATCH`)
+
+                div.modal-header.p-2.px-3
+                    div.d-flex.align-items-center
+                        h1.order-1.p-0.pl-3.m-0.mt-1.font-weight-bold Edit Profile
+                        button.order-0.close.p-0.m-0.modal-header__close-button(type='button' data-dismiss='modal' aria-label='Close')
+                            span(aria-hidden='true') &times;
+                    +submitButton("Save")
+
+                div.modal-body
+                        div.d-flex.align-items-end.mb-3
+                            +userIcon(loggedInUser, "banner")
+                            div.modal-body__profile-image-uploader
+                                +imageUploader("camera-retro")
+                        div.my-2
+                            small Name
+                            input.form-control(
+                                name='fullname' 
+                                placeholder=`${loggedInUser.fullname?loggedInUser.fullname:"Add your fullname" }`
+                                value=`${loggedInUser.fullname?loggedInUser.fullname:"" }`
+                            )
+                        div.my-2
+                            small Bio
+                            input.form-control(
+                                name='bio' 
+                                placeholder=`${loggedInUser.bio?loggedInUser.bio:"Add your bio" }`
+                                value=`${loggedInUser.bio?loggedInUser.bio:"" }`
+                            )
+                        div.my-2
+                            small Location
+                            input.form-control(
+                                name='location' 
+                                placeholder=`${loggedInUser.location?loggedInUser.location:"Add your location" }`
+                                value=`${loggedInUser.location?loggedInUser.location:"" }`
+                            )
+                        div.my-2
+                            small Website
+                            input.form-control(
+                                name='website' 
+                                placeholder=`${loggedInUser.website?loggedInUser.website:"Add your website" }`
+                                value=`${loggedInUser.website?loggedInUser.website:"" }`
+                            )
