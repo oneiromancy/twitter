@@ -1,0 +1,51 @@
+mixin tweetModal(post, iconTrigger, method, action, placeholder, value, btnLabel)
+    - dataTarget = `${method}-${post._id}`
+
+    // Button trigger modal
+    button.btn.p-0.m-0(type='button' data-toggle='modal' data-target=`#${dataTarget}`)
+        i.text-secondary(class=`far fa-${iconTrigger}`)
+
+    // Modal
+    div.modal(id=dataTarget tabindex='-1' role='dialog' aria-hidden='true')
+        div.modal-dialog(role='document')
+            div.modal-content.modal__content
+
+                div.modal-header.m-0.p-0.py-2
+                    div
+                        button.close.modal-header__close-button(type='button' data-dismiss='modal' aria-label='Close')
+                            span(aria-hidden='true') &times;
+
+                div.modal-body
+                    div.d-flex.mb-5
+
+                        +userIcon(tweet.author, "icon")
+                    
+                        div.d-flex.align-items-center.pl-2
+                            div
+                                a.text-dark.font-weight-bold(href=`/${tweet.author.username}`)
+                                    | #{tweet.author.fullname} 
+                                
+                                a.text-secondary.ml-1(href=`/${tweet.author.username}`)
+                                    | @#{tweet.author.username}
+                                
+                                span.ml-2 · 
+
+                                span.ml-1.text-secondary 
+                                    | #{moment(tweet.creationDate).fromNow()}
+                            
+                                div #{tweet.text}
+
+                                div.mt-3
+                                    if method == "PATCH"
+                                        small Updating the tweet above
+                                    else    
+                                        div.mt-3 
+                                            small Replying to 
+                                                a(href=`/${tweet.author.username}`) @#{tweet.author.username}
+
+
+                    div.d-flex.justify-space-between.pb-0
+                        +userIcon(loggedInUser, "icon")
+                        div.modal-body__form.w-100
+                            +tweetForm(method, action, placeholder, value, btnLabel)
+
