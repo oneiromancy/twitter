@@ -64,6 +64,22 @@ exports.unlikeTweet = (req, res, next) => {
     );
 };
 
+exports.getTweetById = (req, res, next) => {
+    Tweet.findOne({ _id: req.params.tweetId })
+        .populate("author")
+        .populate("comments.author")
+        .exec((err, tweet) => {
+            if (err) next(err);
+
+            return res.render("pages/tweet", {
+                title: `${tweet.author.fullname} on Twitter: "${tweet.text}"`,
+                loggedInUser: req.session.user,
+                tweet,
+                moment
+            });
+        });
+};
+
 exports.getTweetsByUserFeed = (req, res, next) => {
     Tweet.find({
         $or: [
@@ -88,12 +104,9 @@ exports.getTweetsByUserFeed = (req, res, next) => {
 exports.getTweetsByAuthor = (req, res, next) => {
     Tweet.find({ author: req.profileRequest._id })
         .sort({ creationDate: -1 })
+        .populate("author")
         .exec((err, tweets) => {
             if (err) next(err);
-
-            tweets.forEach(tweet => {
-                tweet.author = req.profileRequest;
-            });
 
             return res.render("pages/profile", {
                 title: `${req.profileRequest.fullname} (@${req.profileRequest.username})`,

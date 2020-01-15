@@ -11,6 +11,18 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    bio: {
+        type: String,
+        trim: true
+    },
+    location: {
+        type: String,
+        trim: true
+    },
+    website: {
+        type: String,
+        trim: true
+    },
     email: {
         type: String,
         unique: true,
