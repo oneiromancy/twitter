@@ -1,0 +1,26 @@
+include ../mixins/userIcon
+
+mixin cardHeader(post, method, action)
+    div.d-flex
+        +userIcon(post.author, "icon")
+    
+        div.d-flex.align-items-center.pl-2
+            a.text-dark.font-weight-bold(href=`/${post.author.username}`) #{post.author.fullname} 
+            
+            a.text-secondary.ml-1(href=`/${post.author.username}`) @#{post.author.username}
+            
+            span.ml-2 · 
+            
+            span.ml-2.text-secondary #{moment(post.creationDate).fromNow()}
+            
+            if post.author.username === loggedInUser.username
+                span.ml-2 ·
+
+                div.d-flex.flex-align-center
+
+                    div.text-dark.p-0.m-0.px-2
+                        +tweetModal(post, "edit", method, action, null, post.text, "Update")
+
+                    form(action=`http://localhost:3000${action}?_method=DELETE`, method="POST")
+                        button.btn.text-secondary.m-0.p-0
+                            i.far.fa-trash-alt

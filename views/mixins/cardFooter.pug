@@ -1,0 +1,12 @@
+include tweetModal.pug
+
+mixin cardFooter(post)
+    div.d-flex.align-items-end.card__footer
+        div
+            +tweetModal(post, "comment", "POST", `/tweets/${post._id}/comments`, "Tweet your reply", null, "Reply")
+
+        div.ml-auto
+            include ../components/tweetLikes
+
+        div.ml-auto
+            i.text-secondary.fas.fa-retweet

@@ -1,0 +1,9 @@
+include ../mixins/tweetForm
+
+mixin cardBody(post)
+    div.card-body.p-0.pl-3
+        if post.text
+            div.card-body__text.card-text.text-dark.mb-3 #{post.text}
+        
+        if post.image
+            img.card-body__image.img-fluid(src=`/${post.image}`)
