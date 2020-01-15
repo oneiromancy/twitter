@@ -1,0 +1,15 @@
+div
+    if tweet.likes.includes(loggedInUser._id)
+        form(method="POST" action=`/tweets/${tweet._id}/likes?_method=DELETE`)
+            button.btn.p-0 
+                div.d-flex
+                    div
+                        i.tweet-likes__icon--coloured-red.far.fa-heart
+                    div.ml-2 #{tweet.likes.length}
+    else
+        form(method="POST" action=`/tweets/${tweet._id}/likes`)
+            button.btn.p-0 
+                div.d-flex.text-secondary
+                    div
+                        i.far.fa-heart
+                    div.ml-2 #{tweet.likes.length}
