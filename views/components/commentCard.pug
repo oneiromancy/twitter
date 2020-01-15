@@ -1,0 +1,13 @@
+include ../mixins/cardHeader
+include ../mixins/cardBody
+
+div.container.m-0.p-0.border-top
+    div.row
+        div.col-12
+                div.card-header.pb-0.border-0.bg-white
+                    +cardHeader(comment, "PATCH", `/tweets/${tweet._id}/comments/${comment._id}`)
+
+    div.row
+        div.col-11.offset-1
+            div.card-body.py-0
+                +cardBody(comment)
