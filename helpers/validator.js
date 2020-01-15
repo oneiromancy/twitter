@@ -1,7 +1,7 @@
 const User = require("../models/users");
 const { check } = require("express-validator");
 
-exports.createUser = [
+exports.userCreation = [
     check("fullname")
         .not()
         .isEmpty()
