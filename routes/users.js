@@ -9,16 +9,22 @@ router.get("/", tweets.getTweetsByUserFeed);
 
 // Profile Page
 router.get("/:username", users.getUserIdFromUsername, tweets.getTweetsByAuthor);
-
-// // Profile Picture
-router.post(
-    "/:username/profile-picture",
+router.patch(
+    "/:username",
     upload.single("image"),
-    users.updateProfilePicture
+    users.getUserIdFromUsername,
+    users.updateUserDetails
+);
+
+// Tweet Post
+router.get(
+    "/:username/status/:tweetId",
+    users.getUserIdFromUsername,
+    tweets.getTweetById
 );
 
 // Follow/Unfollow
-router.post("/:username/follow", users.followUser);
-router.post("/:username/unfollow", users.unfollowUser);
+router.post("/:username/followers", users.followUser);
+router.delete("/:username/followers", users.unfollowUser);
 
 module.exports = router;
