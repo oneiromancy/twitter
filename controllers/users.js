@@ -26,15 +26,22 @@ exports.getUsersByQuery = (req, res, next) => {
     });
 };
 
-exports.updateProfilePicture = (req, res, next) => {
-    const data = {
-        profilePicture: req.file ? "./uploads/" + req.file.filename : null
-    };
+exports.updateUserDetails = (req, res, next) => {
+    const data = req.body;
+
+    if (req.file) {
+        data["profilePicture"] = "./uploads/" + req.file.filename;
+    }
 
     User.updateOne({ username: req.params.username }, data, (err, user) => {
         if (err) next(err);
 
-        req.session.user.profilePicture = data["profilePicture"];
+        for (const key in data) {
+            if (data[key] && data[key] !== req.session.user[key]) {
+                req.session.user[key] = data[key];
+            }
+        }
+
         return res.redirect("back");
     });
 };
