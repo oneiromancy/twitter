@@ -11,8 +11,7 @@ const TweetSchema = new mongoose.Schema({
     },
     text: {
         type: String,
-        maxlength: 280,
-        required: true
+        maxlength: 280
     },
     image: {
         type: String
@@ -21,6 +20,25 @@ const TweetSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
+        }
+    ],
+    comments: [
+        {
+            creationDate: {
+                type: Date,
+                default: Date.now
+            },
+            author: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            text: {
+                type: String,
+                maxlength: 280
+            },
+            image: {
+                type: String
+            }
         }
     ]
 });
