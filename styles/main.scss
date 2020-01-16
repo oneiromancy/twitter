@@ -1,4 +1,14 @@
-@import "base/index";
-@import "pages/feed";
-@import "pages/profile";
-@import "pages/search";
+@import "./base/index";
+
+@import "./components/tweet-likes";
+@import "./components/user-icon";
+@import "./components/modal";
+@import "./components/card-footer";
+@import "./components/submit-button";
+@import "./components/new-tweet";
+@import "./components/tweet-form";
+@import "./components/card-body";
+@import "./components/image-uploader";
+@import "./components/profile-card";
+@import "./components/navbar";
+@import "./components/search-bar";
