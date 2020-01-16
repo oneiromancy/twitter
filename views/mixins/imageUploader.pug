@@ -1,9 +1,5 @@
-mixin imageUploader(action, uploadIcon, btnLabel)
-    div.image-uploader
-        label.m-0.mb-1(for=`profile-card__${action}-btn`)
-            if uploadIcon
-                i.image-uploader__icon(class=`fa fa-${uploadIcon}`)
-            else
-                a.submit-button.btn.btn-sm.rounded-pill.text-white.font-weight-bold.py-2.px-3 
-                    | #{btnLabel}
-        input.image-uploader__file-input(id=`profile-card__${action}-btn` name="image" type="file")
+mixin imageUploader(icon)
+    div.image-uploader.mt-2
+        label.m-0
+            i.image-uploader__icon.text-secondary(class=`fas fa-${icon}`)
+            input.image-uploader__file-input(name="image" type="file")
