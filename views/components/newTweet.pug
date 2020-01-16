@@ -2,6 +2,6 @@ include ../mixins/userIcon
 include ../mixins/tweetForm
 
 div.new-tweet.card
-    div.card-body.d-flex.justify-space-between
+    div.card-body.d-flex.justify-space-between.pb-0
         +userIcon(loggedInUser, "icon")
-        +tweetForm("POST", "/tweets", "What's happening?", "", "Tweet")
+        +tweetForm("POST", "/tweets", "What's happening?", null, "Tweet")
