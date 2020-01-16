@@ -1,9 +1,5 @@
 extends ../layouts/main
-include ../mixins/searchResults
 
 block primaryColumn
     h1.border.border-bottom-0.m-0.p-3.font-weight-bold Search
-    +searchResults()
-
-block js
-    script(src="/js/search.js")
+    include ../components/searchResult
