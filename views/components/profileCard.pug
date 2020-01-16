@@ -1,8 +1,5 @@
-include ../mixins/submitButton
-include ../mixins/imageUploader
 include ../mixins/userIcon
 include ../mixins/followUser
-include ../mixins/profileDetails
 
 div.profile-card.card
     div.profile-card__banner
@@ -13,13 +10,9 @@ div.profile-card.card
 
             div.pr-3
                 if loggedInUser.username == user.username
-                    form(action=`/${user.username}/profile-picture` enctype="multipart/form-data" method="POST")
-                        div.image-uploader__container
-                            +imageUploader("edit", "", "Edit Profile")
-                        div.profile-picture__confirmation-btn
-                            +submitButton("Confirm")
+                    include profileModal
                 else
                     +followUser(user)
 
         div.pt-2.pl-4
-            +profileDetails()
+            include profileDetails
