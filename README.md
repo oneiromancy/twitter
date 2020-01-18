@@ -2,13 +2,7 @@
 
 ### Description
 
-This is a Twitter clone following an MVC pattern. It is a responsive website that has basic functionality such as authentication, CRUD database operations, etc. It is by no means a fully fledged clone of Twitter (missing likes, comments, re-tweets, etc) but rather a small representation of the website's funcitonality. The following describes its functionality so far:
-
--   to create, read, update and delete tweets (includes the possibility to attach images/gifs)
--   to create users (authenticates them) and allows for the updating of their profile pictures
--   to protect routes from visitors
--   to follow/unfollow a given user
--   to search a given user
+A responsive website that follows an MVC design pattern, has basic functionality such as user authentication, server-side validation, CRUD db operations on tweets, comments and users, and  includes features such as liking a post and following a user.
 
 ![](demo.gif)
 
