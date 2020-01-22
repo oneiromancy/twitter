@@ -26,23 +26,18 @@ const app = express();
 // attaches HTTP request methods (other than POST) to HTML form requests
 app.use(methodOverride("_method"));
 
-// caching
+// session storage in redis (in-memory <=> RAM)
 redisClient.on("error", err => {
     console.log("Redis error: ", err);
 });
 
-// Start a session; we use Redis for the session store.
-// "secret" will be used to create the session ID hash (the cookie id and the redis key value)
-// "name" will show up as your cookie name in the browser
-// "cookie" is provided by default; you can add it to add additional personalized options
-// The "store" ttl is the expiration time for each Redis session ID, in seconds
 app.use(
     session({
         secret: "oneiromancy",
         name: "sid",
         resave: false,
         saveUninitialized: true,
-        cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+        cookie: { secure: false }, // cookie-parser no longer needed
         store: new redisStore({
             host: "localhost",
             port: 6379,
