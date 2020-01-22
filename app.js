@@ -1,11 +1,16 @@
+// Node modules
 const express = require("express");
 const path = require("path");
 const createError = require("http-errors");
-const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const redis = require("redis");
+const redisClient = redis.createClient();
+const redisStore = require("connect-redis")(session);
+
+// Helpers
 const gateway = require("./helpers/gateway");
 
 // routes <=> file paths
@@ -21,26 +26,31 @@ const app = express();
 // attaches HTTP request methods (other than POST) to HTML form requests
 app.use(methodOverride("_method"));
 
-// cookie parser
-app.use(cookieParser());
+// caching
+redisClient.on("error", err => {
+    console.log("Redis error: ", err);
+});
 
-// sessions to track user login
+// Start a session; we use Redis for the session store.
+// "secret" will be used to create the session ID hash (the cookie id and the redis key value)
+// "name" will show up as your cookie name in the browser
+// "cookie" is provided by default; you can add it to add additional personalized options
+// The "store" ttl is the expiration time for each Redis session ID, in seconds
 app.use(
     session({
         secret: "oneiromancy",
-        resave: true,
-        saveUninitialized: false
+        name: "sid",
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false }, // Note that the cookie-parser module is no longer needed
+        store: new redisStore({
+            host: "localhost",
+            port: 6379,
+            client: redisClient,
+            ttl: 86400
+        })
     })
 );
-
-// caching disabled for every route
-app.use(function(req, res, next) {
-    res.set(
-        "Cache-Control",
-        "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
-    );
-    next();
-});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
