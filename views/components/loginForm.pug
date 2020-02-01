@@ -1,8 +1,11 @@
 include ../mixins/inputField.pug
 include ../mixins/submitButton.pug
 
-form(method="POST" action="/login")
-    +inputField("username", "text", "username")
-    +inputField("password", "password", "password")
+form(method="POST" action="/login" class="needs-validation" novalidate="")
+    +inputField("username", "text", "Username", "Please enter a valid username")
+    +inputField("password", "password", "Password", "Please enter a valid password", "[A-Za-z0-9]{8,24}")
 
     +submitButton("Login")
+
+script(src="js/validator.js")
+
