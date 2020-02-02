@@ -3,11 +3,11 @@ include ../mixins/submitButton.pug
 
 form(method="POST" action ="/signup" class="needs-validation" novalidate="")
     
-    //- inputField(name, type, placeholder, invalidFeedback, regex)
-
-    +inputField("fullname", "text", "Full name", "Please enter a valid full name", "[a-zA-Z0-9_ ]{4,30}")
+    //- inputField(name, type, placeholder, invalidFeedback, minLength, maxLength regex)
+    
+    +inputField("fullname", "text", "Full name", "Please enter a valid full name", "4", "30", "[a-zA-Z0-9_ ]{4,30}")
     +inputField("email", "email", "Email", "Please enter a valid email")
-    +inputField("username", "text", "Username", "Please enter a valid username")
-    +inputField("password", "password", "Password", "Please enter a valid password", "[A-Za-z0-9]{8,30}")
+    +inputField("username", "text", "Username", "Please enter a valid username", "4", "30")
+    +inputField("password", "password", "Password", "Please enter a valid password", "8", "30", "[A-Za-z0-9]{8,30}")
 
     +submitButton("Sign up")
