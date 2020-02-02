@@ -12,8 +12,8 @@
                     if (authForm.checkValidity() === false) {
                         event.stopPropagation();
                         event.preventDefault();
+                        authForm.classList.add("was-validated");
                     }
-                    authForm.classList.add("was-validated");
                 },
                 false
             );
