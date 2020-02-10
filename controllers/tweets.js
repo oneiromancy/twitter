@@ -17,6 +17,7 @@ exports.createTweet = (req, res, next) => {
 
 exports.updateTweet = (req, res, next) => {
     const data = {};
+
     data["text"] = req.body.text;
 
     if (req.file) {
@@ -25,8 +26,6 @@ exports.updateTweet = (req, res, next) => {
 
     Tweet.updateOne({ _id: req.params.tweetId }, data, (err, tweet) => {
         if (err) next(err);
-
-        req.session.errors = null;
 
         return res.redirect("back");
     });
@@ -65,6 +64,9 @@ exports.unlikeTweet = (req, res, next) => {
 };
 
 exports.getTweetById = (req, res, next) => {
+    const errors = req.session.errors;
+    req.session.errors = null;
+
     Tweet.findOne({ _id: req.params.tweetId })
         .populate("author")
         .populate("comments.author")
@@ -75,12 +77,16 @@ exports.getTweetById = (req, res, next) => {
                 title: `${tweet.author.fullname} on Twitter: "${tweet.text}"`,
                 loggedInUser: req.session.user,
                 tweet,
-                moment
+                moment,
+                errors
             });
         });
 };
 
 exports.getTweetsByUserFeed = (req, res, next) => {
+    const errors = req.session.errors;
+    req.session.errors = null;
+
     Tweet.find({
         $or: [
             { author: req.session.user._id },
@@ -96,12 +102,16 @@ exports.getTweetsByUserFeed = (req, res, next) => {
                 title: "Home / Twitter",
                 loggedInUser: req.session.user,
                 tweets,
-                moment
+                moment,
+                errors
             });
         });
 };
 
 exports.getTweetsByAuthor = (req, res, next) => {
+    const errors = req.session.errors;
+    req.session.errors = null;
+
     Tweet.find({ author: req.profileRequest._id })
         .sort({ creationDate: -1 })
         .populate("author")
@@ -113,7 +123,8 @@ exports.getTweetsByAuthor = (req, res, next) => {
                 loggedInUser: req.session.user,
                 user: req.profileRequest,
                 tweets,
-                moment
+                moment,
+                errors
             });
         });
 };

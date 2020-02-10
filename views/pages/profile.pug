@@ -1,6 +1,15 @@
 extends ../layouts/main
 
 block primaryColumn
+    if errors
+        div.alert.alert-danger.m-0(role="alert")
+            if errors[0].param === "text"
+                | #{errors[0].msg}
+            else
+                | Profile Update Error
+
     h1.border.border-bottom-0.m-0.p-3.font-weight-bold #{user.fullname}
     include ../components/profileCard
     include ../components/tweets
+
+    script(src="js/validator.js")

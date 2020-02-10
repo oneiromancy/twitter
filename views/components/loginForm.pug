@@ -3,9 +3,14 @@ include ../mixins/submitButton.pug
 
 form(method="POST" action="/login" class="needs-validation" novalidate="")
     
-    //- inputField(name, type, placeholder, invalidFeedback, minLength, maxLength, regex)
+    //- inputField(name, type, placeholder, invalidFeedback, regex)
     
-    +inputField("username", "text", "Username", "Please enter a valid username", "4", "30")
-    +inputField("password", "password", "Password", "Please enter a valid password", "8", "30", "[A-Za-z0-9]{8,30}")
+    +inputField("username", "text", "Username", "Has a 15-character limit, must be alphanumeric and nonempty", 
+    "^[A-Za-z0-9 ]{1,15}$")
+    
+    +inputField("password", "password", "Password", 
+        "Has an 8-character minimum and must include uppercase, lowercase and number", 
+        "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.{8,}).*$"
+    )
 
     +submitButton("Login")

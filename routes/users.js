@@ -3,6 +3,12 @@ const router = express.Router();
 const users = require("../controllers/users");
 const tweets = require("../controllers/tweets");
 const { upload } = require("../helpers/uploader");
+const validator = require("../helpers/validator");
+const inputHandlers = [
+    upload.single("image"),
+    validator.tweet,
+    validator.saveError
+];
 
 // Home Page <=> Feed/Timeline
 router.get("/", tweets.getTweetsByUserFeed);
@@ -11,7 +17,7 @@ router.get("/", tweets.getTweetsByUserFeed);
 router.get("/:username", users.getUserIdFromUsername, tweets.getTweetsByAuthor);
 router.patch(
     "/:username",
-    upload.single("image"),
+    inputHandlers,
     users.getUserIdFromUsername,
     users.updateUserDetails
 );

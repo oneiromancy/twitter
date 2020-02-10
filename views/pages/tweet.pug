@@ -4,6 +4,9 @@ include ../mixins/cardBody
 include ../mixins/cardFooter
 
 block primaryColumn
+    if errors
+        div.alert.alert-danger.m-0(role="alert") #{errors[0].msg}
+
     h1.border.border-bottom-0.m-0.p-3.font-weight-bold Tweet
     
     div.card.p-3
@@ -23,3 +26,5 @@ block primaryColumn
 
         div
             include ../components/comments
+
+    script(src="../../js/validator.js")

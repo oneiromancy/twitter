@@ -13,7 +13,13 @@ div.modal(id="user-profile" tabindex='-1' role='dialog' aria-hidden='true')
     div.modal-dialog(role='document')
         div.modal-content.modal__content
         
-            form(method="POST" enctype="multipart/form-data" action=`/${loggedInUser.username}?_method=PATCH`)
+            form(
+                method="POST" 
+                enctype="multipart/form-data" 
+                action=`/${loggedInUser.username}?_method=PATCH` 
+                class="needs-validation" 
+                novalidate=""
+            )
 
                 div.modal-header.p-2.px-3
                     div.d-flex.align-items-center
@@ -33,25 +39,45 @@ div.modal(id="user-profile" tabindex='-1' role='dialog' aria-hidden='true')
                                 name='fullname' 
                                 placeholder=`${loggedInUser.fullname?loggedInUser.fullname:"Add your fullname" }`
                                 value=`${loggedInUser.fullname?loggedInUser.fullname:"" }`
+                                pattern="[a-zA-Z0-9 ]{1,30}$"
+                                required=""
                             )
+
+                            div.invalid-feedback Has a 50-character limit, must be alphanumeric and nonempty
+                            div.valid-feedback Looks good
+                        
                         div.my-2
                             small Bio
                             input.form-control(
                                 name='bio' 
                                 placeholder=`${loggedInUser.bio?loggedInUser.bio:"Add your bio" }`
                                 value=`${loggedInUser.bio?loggedInUser.bio:"" }`
+                                pattern="[a-zA-Z0-9 ]{0,100}$"
                             )
+
+                            div.invalid-feedback Has a 140-character limit and must be alphanumeric
+                            div.valid-feedback Looks good
+
                         div.my-2
                             small Location
                             input.form-control(
                                 name='location' 
                                 placeholder=`${loggedInUser.location?loggedInUser.location:"Add your location" }`
                                 value=`${loggedInUser.location?loggedInUser.location:"" }`
+                                pattern="[A-Za-z0-9 ]{0,30}$"
                             )
+
+                            div.invalid-feedback Has a 50-character limit and must be alphanumeric
+                            div.valid-feedback Looks good
+
                         div.my-2
                             small Website
                             input.form-control(
                                 name='website' 
                                 placeholder=`${loggedInUser.website?loggedInUser.website:"Add your website" }`
                                 value=`${loggedInUser.website?loggedInUser.website:"" }`
+                                pattern="^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$"
                             )
+
+                            div.invalid-feedback Must be a valid website
+                            div.valid-feedback Looks good

@@ -9,14 +9,14 @@ div
     
     div.d-flex.mt-3 
         if user.location
-            div.text-secondary.mr-2
+            div.text-secondary.mr-2.d-flex
                 i.fa.fa-map-marker-alt.mr-1
-                span #{user.location}
+                div #{user.location}
 
         if user.website
-            div.text-secondary.mx-2 
+            div.text-secondary.mx-2.d-flex 
                 i.fa.fa-link.mr-1
-                a(href=user.website) #{user.website}
+                a(href=`http://${user.website}`) #{user.website}
 
         div.text-secondary.mx-2
             i.fa.fa-calendar-alt.mr-2

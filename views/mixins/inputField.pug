@@ -1,13 +1,11 @@
-mixin inputField(name, type, placeholder, invalidFeedback, minLength, maxLength, regex)
+mixin inputField(name, type, placeholder, invalidFeedback, regex)
     div.form-group
         input(
             class="form-control__input form-control form-control-sm w-50"
             name=name
             type=type
-            minlength=minLength
-            maxlength=maxLength
-            pattern=regex
             placeholder=placeholder
+            pattern=regex
             required=""
         )
 

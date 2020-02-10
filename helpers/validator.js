@@ -1,30 +1,25 @@
 const User = require("../models/users");
-const { check } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 
-exports.userCreation = [
+exports.signup = [
     check("fullname")
-        .not()
-        .isEmpty()
-        .withMessage("Fullname was not given"),
+        .trim()
+        .matches(/[a-zA-Z0-9 ]{1,50}$/)
+        .withMessage(
+            "Has a 50-character limit, must be alphanumeric and nonempty"
+        ),
 
     check("email")
-        .not()
-        .isEmpty()
-        .withMessage("Email was not given")
+        .trim()
         .isEmail()
-        .withMessage("Email must be legitimate")
-        .custom(value => {
-            return User.findOne({ email: value }).then(user => {
-                if (user) {
-                    return Promise.reject("Email already taken");
-                }
-            });
-        }),
+        .withMessage("Must be a valid email"),
 
     check("username")
-        .not()
-        .isEmpty()
-        .withMessage("Username was not given")
+        .trim()
+        .matches(/^[A-Za-z0-9 ]{1,15}$/)
+        .withMessage(
+            "Has a 15-character limit, must be alphanumeric and nonempty"
+        )
         .custom(value => {
             return User.findOne({ username: value }).then(user => {
                 if (user) {
@@ -34,11 +29,66 @@ exports.userCreation = [
         }),
 
     check("password")
-        .not()
-        .isEmpty()
-        .withMessage("Password was not given")
-        .isLength({ min: 8 })
-        .withMessage("Password must contain a minimum of 8 characters")
-        .matches(/\d/)
-        .withMessage("Password must include numbers and letters")
+        .trim()
+        .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.{8,}).*$/)
+        .withMessage(
+            "Has an 8-character minimum and must include uppercase, lowercase and number"
+        )
 ];
+
+exports.login = [
+    check("username")
+        .trim()
+        .matches(/^[A-Za-z0-9 ]{1,15}$/)
+        .withMessage(
+            "Has a 15-character limit, must be alphanumeric and nonempty"
+        ),
+
+    check("password")
+        .trim()
+        .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?!.*\s)(?=.{8,}).*$/)
+        .withMessage(
+            "Has an 8-character minimum and must include uppercase, lowercase and number"
+        )
+];
+
+exports.tweet = [
+    check("text")
+        .trim()
+        .matches(/^[A-Za-z0-9 ]{1,280}$/)
+        .withMessage("Tweets have a 280-character limit and must be nonempty")
+];
+
+exports.profile = [
+    check("fullname")
+        .trim()
+        .matches(/^[A-Za-z0-9 ]{1,30}$/)
+        .withMessage(
+            "Has a 50-character limit, must be alphanumeric and nonempty"
+        ),
+    check("bio")
+        .trim()
+        .matches(/^[a-zA-Z0-9 ]{0,100}$/)
+        .withMessage("Has a 140-character limit and must be alphanumeric"),
+    check("location")
+        .trim()
+        .matches(/^[A-Za-z0-9 ]{0,30}$/)
+        .withMessage("Has a 50-character limit and must be alphanumeric"),
+    check("website")
+        .trim()
+        .matches(
+            /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/
+        )
+        .withMessage("Must be a valid website")
+];
+
+exports.saveError = (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        req.session.errors = errors.array();
+        return res.redirect("back");
+    }
+
+    next();
+};

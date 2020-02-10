@@ -3,10 +3,17 @@ include imageUploader
 
 mixin tweetForm(method, action, placeholder, value, btnLabel)
     div.tweet-form.ml-2
-        form(method="POST" enctype="multipart/form-data" action=`${action}?_method=${method}`)
+        form(method="POST" enctype="multipart/form-data" action=`${action}?_method=${method}` class="needs-validation" novalidate="")
             
             div.form-group
-                textarea.w-100.tweet-form__textarea.form-control.border-0(type="text" name="text" placeholder = placeholder)
+                textarea.w-100.tweet-form__textarea.form-control.border-0(
+                    type="text" 
+                    name="text" 
+                    placeholder = placeholder
+                    minLength="1"
+                    maxLength="280"
+                    required=""
+                )
                     | #{value}
                 
                 div.d-flex.justify-content-end.align-items-start

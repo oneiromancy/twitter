@@ -4,19 +4,21 @@
     window.addEventListener(
         "load",
         () => {
-            const authForm = document.querySelector(".needs-validation");
+            const forms = document.querySelectorAll(".needs-validation");
 
-            authForm.addEventListener(
-                "submit",
-                event => {
-                    if (authForm.checkValidity() === false) {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        authForm.classList.add("was-validated");
-                    }
-                },
-                false
-            );
+            forms.forEach(form => {
+                form.addEventListener(
+                    "submit",
+                    event => {
+                        if (form.checkValidity() === false) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                            form.classList.add("was-validated");
+                        }
+                    },
+                    false
+                );
+            });
         },
         false
     );

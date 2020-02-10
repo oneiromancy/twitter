@@ -5,6 +5,6 @@ const validator = require("../helpers/validator");
 
 router.get("/", auth.renderSignupPage);
 
-router.post("/", validator.userCreation, auth.signupUser);
+router.post("/", [validator.signup, validator.saveError], auth.signupUser);
 
 module.exports = router;

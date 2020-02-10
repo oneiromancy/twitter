@@ -2,7 +2,11 @@ extends ../layouts/auth
 
 block errors
     if errors
-        p.text-danger.mb-5 The email and password you entered did not match our records. Please double-check and try again. 
+        if errors === "Invalid credentials"
+            p.text-danger.mb-4 The username and password you entered did not match our records. Please double-check and try again. 
+        else
+            h1.text-danger.mb-4
+                | Login Error
 
 block heading
     | Log in to Twitter

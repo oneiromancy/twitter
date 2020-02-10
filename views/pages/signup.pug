@@ -2,9 +2,12 @@ extends ../layouts/auth
 
 block errors
     if errors
-        ul.list-group.mb-5.ml-3
+        h1.text-danger.mb-4
+            | Registration Error
             each error in errors
-                li.text-danger= error.msg
+                if error.msg === "Username already taken"
+                    | &nbsp;(#{error.msg.toLowerCase()})
+
 
 block heading
     | Join Twitter today
