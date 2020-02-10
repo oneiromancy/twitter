@@ -4,13 +4,14 @@
     "private": true,
     "scripts": {
         "start": "nodemon ./bin/www",
-        "css": "node-sass styles/main.scss -o public/stylesheets",
-        "css:watch": "node-sass styles/main.scss -wo public/stylesheets"
+        "build-css": "node-sass --include-path scss styles/main.scss public/stylesheets/main.css",
+        "watch-css": "nodemon -e scss -x \npm run build-css\""
     },
     "dependencies": {
         "bcrypt": "^3.0.7",
         "connect-redis": "^4.0.3",
         "debug": "~2.6.9",
+        "dotenv": "^8.2.0",
         "express": "~4.16.1",
         "express-session": "^1.16.2",
         "express-validator": "^6.3.1",

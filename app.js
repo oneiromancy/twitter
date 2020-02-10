@@ -1,4 +1,5 @@
 // Node modules
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const createError = require("http-errors");
