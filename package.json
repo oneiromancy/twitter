@@ -8,7 +8,7 @@
         "watch-css": "nodemon -e scss -x \npm run build-css\""
     },
     "dependencies": {
-        "bcrypt": "^3.0.7",
+        "bcrypt": "^5.0.0",
         "connect-redis": "^4.0.3",
         "debug": "~2.6.9",
         "dotenv": "^8.2.0",
